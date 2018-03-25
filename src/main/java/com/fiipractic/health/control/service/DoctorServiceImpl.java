@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
@@ -21,7 +22,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Doctor getDoctor(Long id) {
-        return doctorRepository.findById(id).get();
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(id);
+        return optionalDoctor.orElse(null);
 
     }
 
