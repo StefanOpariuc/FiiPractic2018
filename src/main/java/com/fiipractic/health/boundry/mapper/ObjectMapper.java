@@ -1,6 +1,6 @@
-package com.fiipractic.health.mapper;
+package com.fiipractic.health.boundry.mapper;
 
-import com.fiipractic.health.model.Doctor;
+import com.fiipractic.health.entity.model.Doctor;
 
 public class ObjectMapper {
 

@@ -1,4 +1,4 @@
-package com.fiipractic.health.exceptions;
+package com.fiipractic.health.boundry.exceptions;
 
 public class HealthGenericException extends Exception{
 

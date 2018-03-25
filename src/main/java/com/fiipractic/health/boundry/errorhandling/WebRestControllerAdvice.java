@@ -1,10 +1,9 @@
-package com.fiipractic.health.errorHandling;
+package com.fiipractic.health.boundry.errorhandling;
 
-import com.fiipractic.health.exceptions.BadRequestException;
-import com.fiipractic.health.exceptions.NotFoundException;
+import com.fiipractic.health.boundry.exceptions.BadRequestException;
+import com.fiipractic.health.boundry.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -25,6 +24,7 @@ public class WebRestControllerAdvice {
 
     /**
      * Default handler for exceptions that may occur in the application.
+     *
      * @param ex
      * @return
      */
