@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
-    @Query(name = "select * from doctor where id = 1", nativeQuery = true)
-    public Doctor findOne();
 }
