@@ -1,5 +1,7 @@
 target/
-.mvn/
+.mvn
+mvnw
+*.cmd
 
 ### STS ###
 .apt_generated
