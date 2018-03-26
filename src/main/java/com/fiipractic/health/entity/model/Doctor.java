@@ -16,11 +16,12 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 40)
     private String name;
 
     @Column(name = "function")
     private String function;
+
 
     public Long getId() {
         return id;
