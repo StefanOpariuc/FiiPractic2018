@@ -7,6 +7,8 @@ import com.fiipractic.health.boundry.exceptions.NotFoundException;
 import com.fiipractic.health.boundry.mapper.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @RestController
@@ -24,10 +28,12 @@ import java.util.List;
 public class DoctorController {
 
     private DoctorService doctorService;
+    private JavaMailSender javaMailSender;
 
     @Autowired
-    public DoctorController(DoctorService doctorService) {
+    public DoctorController(DoctorService doctorService, JavaMailSender javaMailSender) {
         this.doctorService = doctorService;
+        this.javaMailSender = javaMailSender;
     }
 
     @GetMapping
@@ -61,7 +67,9 @@ public class DoctorController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Doctor saveDoctor(@RequestBody Doctor doctor) {
-        return doctorService.saveDoctor(doctor);
+        Doctor doctor1 = doctorService.saveDoctor(doctor);
+        this.sendEmail(doctor1);
+        return doctor1;
     }
 
     @DeleteMapping(value = "/{id}")
@@ -72,5 +80,20 @@ public class DoctorController {
             throw new NotFoundException(String.format("Doctor with id=%s was not found.", id));
         }
         doctorService.deleteDoctor(doctorDb);
+    }
+
+    private void sendEmail(Doctor doctor){
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+        try {
+            mimeMessageHelper.setTo(doctor.getEmail().getEmailAddress());
+            mimeMessageHelper.setSubject("Account created");
+            mimeMessageHelper.setText(
+                    String.format("Hello Dr. %s. Your account has been created ", doctor.getName()));
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

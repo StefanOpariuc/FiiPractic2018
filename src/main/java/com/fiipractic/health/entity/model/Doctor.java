@@ -1,11 +1,9 @@
 package com.fiipractic.health.entity.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fiipractic.health.entity.Appointment;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "doctor")
@@ -22,6 +20,12 @@ public class Doctor {
     @Column(name = "function")
     private String function;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email_id")
+    private Email email;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
+    private List<Appointment> appointmentList;
 
     public Long getId() {
         return id;
@@ -41,5 +45,21 @@ public class Doctor {
 
     public void setFunction(String function) {
         this.function = function;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
     }
 }

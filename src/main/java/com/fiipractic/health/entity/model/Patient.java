@@ -1,14 +1,10 @@
 package com.fiipractic.health.entity.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "cool_patient")
+@Table(name = "patient")
 public class Patient {
 
     @Id
@@ -21,6 +17,10 @@ public class Patient {
 
     @Column(name = "patient_age", nullable = false)
     private Long patientAge;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "email_id")
+    private Email email;
 
     public Long getId() {
         return id;
@@ -45,4 +45,14 @@ public class Patient {
     public void setPatientAge(Long patientAge) {
         this.patientAge = patientAge;
     }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+
 }
