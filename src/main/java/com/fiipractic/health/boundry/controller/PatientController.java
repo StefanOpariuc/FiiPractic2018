@@ -1,5 +1,6 @@
 package com.fiipractic.health.boundry.controller;
 
+import com.fiipractic.health.aspects.CustomLogAnnotation;
 import com.fiipractic.health.control.service.PatientService;
 import com.fiipractic.health.entity.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class PatientController {
     }
 
     @GetMapping("/filter")
+    @CustomLogAnnotation
     public List<Patient> getPatientsByAge(@RequestParam("patientAge") Long patientAge) {
         return patientService.findAllPatientsWithAge(patientAge);
     }
