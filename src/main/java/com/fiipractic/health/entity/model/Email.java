@@ -1,5 +1,7 @@
 package com.fiipractic.health.entity.model;
 
+import com.fiipractic.health.validators.EmailAnnotation;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,7 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @EmailAnnotation
     private String emailAddress;
 
     public Long getId() {

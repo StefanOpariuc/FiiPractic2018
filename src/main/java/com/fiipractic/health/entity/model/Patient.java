@@ -1,5 +1,7 @@
 package com.fiipractic.health.entity.model;
 
+import com.fiipractic.health.validators.EmailAnnotation;
+
 import javax.persistence.*;
 import java.util.List;
 
